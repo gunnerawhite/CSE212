@@ -1,29 +1,38 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-// TODO Problem 2 - Write and run test cases and fix the code to match requirements.
-
 [TestClass]
 public class PriorityQueueTests
 {
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
+    // Scenario: Adding elements with different priorities and removing them in order of priority
+    // Expected Result: Elements are removed in the order of their priority (higher priority first)
+    // Defect(s) Found: Ensure correct ordering of elements
     public void TestPriorityQueue_1()
     {
         var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
+        priorityQueue.Enqueue("Low Priority Task", 1);
+        priorityQueue.Enqueue("Medium Priority Task", 5);
+        priorityQueue.Enqueue("High Priority Task", 10);
+        
+        var highestPriorityTask = priorityQueue.Dequeue();
+        Assert.AreEqual("High Priority Task", highestPriorityTask, "Expected to dequeue the highest priority task first.");
+
+        var mediumPriorityTask = priorityQueue.Dequeue();
+        Assert.AreEqual("Medium Priority Task", mediumPriorityTask, "Expected to dequeue the medium priority task next.");
+
+        var lowestPriorityTask = priorityQueue.Dequeue();
+        Assert.AreEqual("Low Priority Task", lowestPriorityTask, "Expected to dequeue the lowest priority task last.");
     }
 
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
+    // Scenario: Attempting to dequeue from an empty priority queue
+    // Expected Result: An exception is thrown indicating the queue is empty
+    // Defect(s) Found: Ensure proper exception handling for empty queue
     public void TestPriorityQueue_2()
     {
         var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
+
+        Assert.ThrowsException<InvalidOperationException>(() => priorityQueue.Dequeue(), "Expected an exception when dequeuing from an empty queue.");
     }
 
-    // Add more test cases as needed below.
 }
