@@ -25,41 +25,52 @@ public class Maze
         _mazeMap = mazeMap;
     }
 
-    // TODO Problem 4 - ADD YOUR CODE HERE
-    /// <summary>
-    /// Check to see if you can move left.  If you can, then move.  If you
-    /// can't move, throw an InvalidOperationException with the message "Can't go that way!".
-    /// </summary>
     public void MoveLeft()
     {
-        // FILL IN CODE
+        if (_mazeMap.TryGetValue((_currX, _currY), out var movements) && movements[0]) // Check left
+        {
+            _currX--; // Move left
+        }
+        else
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
     }
 
-    /// <summary>
-    /// Check to see if you can move right.  If you can, then move.  If you
-    /// can't move, throw an InvalidOperationException with the message "Can't go that way!".
-    /// </summary>
     public void MoveRight()
     {
-        // FILL IN CODE
+        if (_mazeMap.TryGetValue((_currX, _currY), out var movements) && movements[1]) // Check right
+        {
+            _currX++; // Move right
+        }
+        else
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
     }
 
-    /// <summary>
-    /// Check to see if you can move up.  If you can, then move.  If you
-    /// can't move, throw an InvalidOperationException with the message "Can't go that way!".
-    /// </summary>
     public void MoveUp()
     {
-        // FILL IN CODE
+        if (_mazeMap.TryGetValue((_currX, _currY), out var movements) && movements[2]) // Check up
+        {
+            _currY--; // Move up
+        }
+        else
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
     }
 
-    /// <summary>
-    /// Check to see if you can move down.  If you can, then move.  If you
-    /// can't move, throw an InvalidOperationException with the message "Can't go that way!".
-    /// </summary>
     public void MoveDown()
     {
-        // FILL IN CODE
+        if (_mazeMap.TryGetValue((_currX, _currY), out var movements) && movements[3]) // Check down
+        {
+            _currY++; // Move down
+        }
+        else
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
     }
 
     public string GetStatus()

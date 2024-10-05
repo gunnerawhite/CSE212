@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 
 public static class SetsAndMaps
 {
@@ -21,8 +22,23 @@ public static class SetsAndMaps
     /// <param name="words">An array of 2-character words (lowercase, no duplicates)</param>
     public static string[] FindPairs(string[] words)
     {
-        // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        HashSet<string> wordset = new HashSet<string>(words);
+        HashSet<string> finalSet = new HashSet<string>();
+
+        foreach(var word in words){
+            char[] reversedArray = word.ToCharArray();
+            Array.Reverse(reversedArray);
+            string reversedWord = new string(reversedArray);
+
+            // check to see if the reversed word is in the set
+            if (wordset.Contains(reversedWord)){
+
+                // create the string and add it to the final set
+                string pair = $"{word} & {reversedWord}";
+                finalSet.Add(pair);
+            }
+        }
+        return new List<string>(finalSet).ToArray();
     }
 
     /// <summary>
@@ -42,7 +58,22 @@ public static class SetsAndMaps
         foreach (var line in File.ReadLines(filename))
         {
             var fields = line.Split(",");
-            // TODO Problem 2 - ADD YOUR CODE HERE
+            
+            if (fields.Length > 4){
+                string degree = fields[4].Trim();
+
+                // update the count in the dictionary
+                if (degrees.ContainsKey(degree)){
+
+                    degrees[degree]++;
+                }
+
+                else {
+                    // initialize count if the degree is not already in the dictionary
+                    degrees[degree] = 1;
+                }
+            }
+            
         }
 
         return degrees;
@@ -66,9 +97,48 @@ public static class SetsAndMaps
     /// </summary>
     public static bool IsAnagram(string word1, string word2)
     {
-        // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+    // Normalize the inputs
+    string word1Lower = word1.Replace(" ", "").ToLower();
+    string word2Lower = word2.Replace(" ", "").ToLower();
+
+    // Quick check to make sure the words are equal length
+    if (word1Lower.Length != word2Lower.Length) return false;
+
+    var charCount = new Dictionary<char, int>();
+
+    // Count characters in word1
+    foreach (char c in word1Lower)
+    {
+        if (charCount.ContainsKey(c))
+        {
+            charCount[c]++;
+        }
+        else
+        {
+            charCount[c] = 1;
+        }
     }
+
+    // Check characters in word2 against the dictionary
+    foreach (char c in word2Lower)
+    {
+        if (charCount.ContainsKey(c))
+        {
+            charCount[c]--;
+            if (charCount[c] < 0)
+            {
+                return false; // More occurrences in word2 than in word1
+            }
+        }
+        else
+        {
+            return false; // Character in word2 not found in word1
+        }
+    }
+
+    // If we reach here, the words are anagrams
+    return true;
+}
 
     /// <summary>
     /// This function will read JSON (Javascript Object Notation) data from the 
