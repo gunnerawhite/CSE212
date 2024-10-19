@@ -7,6 +7,20 @@ public class LinkedList : IEnumerable<int>
     private Node? _head;
     private Node? _tail;
 
+    private class Node
+    {
+        public int Data { get; set; }
+        public Node? Next { get; set; }
+        public Node? Prev { get; set; }
+
+        public Node(int data)
+        {
+            Data = data;
+            Next = null;
+            Prev = null;
+        }
+    }
+
     /// <summary>
     /// Insert a new node at the front (i.e. the head) of the linked list.
     /// </summary>
@@ -136,7 +150,7 @@ public class LinkedList : IEnumerable<int>
     // Traverse the list to find the node with the specified value
     while (current != null)
     {
-        if (current.Value == value)
+        if (current.Data == value) // Change from Value to Data
         {
             // Case 1: Node is the head
             if (current == _head)
